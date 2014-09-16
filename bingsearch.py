@@ -1,8 +1,9 @@
 import requests
+import json
 
-URL = 'https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/Web?Query=%(query)s&$top=50&$format=json'
+URL = 'https://api.datamarket.azure.com/Bing/Search/v1/Web?$format=json'
 API_KEY = 'SECRET_API_KEY'
 
-def request(query, **params):
-    r = requests.get(URL % {'query': query}, auth=('', API_KEY))
-    return r.json['d']['results']
+def request(query):
+    r = requests.get(URL, auth=('', API_KEY), params={'Query':'\'' + query + '\''})
+    return r.json()['d']['results']
